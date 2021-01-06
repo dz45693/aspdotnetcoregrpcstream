@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package greet;
+
+message HelloRequest {
+  string greeting = 1;
+  map<string, string> infos  = 2;
+}
+ 
+message HelloResponse {
+  string reply = 1;
+  repeated google.protobuf.Any details = 2;
+}
+ 
+service HelloService {
+  rpc SayHello(HelloRequest) returns (HelloResponse){}
+  rpc ListHello(HelloRequest) returns (stream HelloResponse) {}
+  rpc SayMoreHello(stream HelloRequest) returns (HelloResponse) {}
+  rpc SayHelloChat(stream HelloRequest) returns (stream HelloRequest) {}
+}
+ 
+message Hello {
+	string msg = 1;
+}
+ 
+message Error {
+	repeated string msg = 1;
+}
